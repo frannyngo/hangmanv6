@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>    
+    <title>HangMan</title>
+    <audio src="./sounds/correct.mp3" id="correctSound"></audio>
+    <audio src="./sounds/buzzer.mp3" id="wrongSound"></audio>
+    <audio src="./sounds/gameOver.mp3" id="gameOverSound"></audio>
+    <audio src="./sounds/win.mp3" id="winSound"></audio>
+    <style>
+        body {
+            font-size: 17px;
+            font-family: arial;
+            background: bisque;
+            line-height: 1.5em;
+        }
+            /* hi this is for the pull request */
+        header {
+            background: grey;
+            color: white;
+            text-align: center;
+            border-bottom: 4px solid;
+            border-top: 4px solid;
+            margin-bottom: 10px;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        .answer h1 {
+            display: none;
+            margin: 10px;
+        }
+
+        .answer {
+            display: flex;
+        }
+        
+        .hangman {
+            margin-top: 50px;
+        }
+
+        .bigDaddeh {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .keyboard button {
+            background-color: bisque;
+            height: 40px;
+            width: 40px;
+            padding: 5px;
+            margin: 3px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Hangman</h1>
+    </header>
+
+    <div class="bigDaddeh">
+    <section class="keyboard">
+        <h3>Keyboard</h3>
+        <div>
+            <button id="q">Q</button>
+            <button id="w">W</button>
+            <button id="e">E</button>
+            <button id="r">R</button>
+            <button id="t">T</button>
+            <button id="y">Y</button>
+            <button id="u">U</button>
+            <button id="i">I</button>
+            <button id="o">O</button>
+            <button id="p">P</button>
+        </div>
+        <div>
+            <button id="a">A</button>
+            <button id="s">S</button>
+            <button id="d">D</button>
+            <button id="f">F</button>
+            <button id="g">G</button>
+            <button id="h">H</button>
+            <button id="j">J</button>
+            <button id="k">K</button>
+            <button id="l">L</button>
+        </div>
+        <div>
+            <button id="z">Z</button>
+            <button id="x">X</button>
+            <button id="c">C</button>
+            <button id="v">V</button>
+            <button id="b">B</button>
+            <button id="n">N</button>
+            <button id="m">M</button>
+        </div>
+    </section>
+    
+
+    <section class="hangman">
+        <img width="200px" height="200px" src="./images/hangman.jpg" alt="hangman post">
+    </section>
+    </div>
+
+    <hr>
+
+    <section class="secret-word">
+        <h3>Secret Word</h3>
+        <p> 
+            <span>Hint:</span>
+            Rhymes with 'ranger'.
+        </p>
+        <div class="answer">
+            <h1 id="answerS">S</h1>
+            <p id="spacingS">&emsp;</p>
+            <h1 id="answerT">T</h1>
+            <p id="spacingT">&emsp;</p>
+            <h1 id="answerR">R</h1>
+            <p id="spacingR">&emsp;</p>
+            <h1 id="answerA">A</h1>
+            <p id="spacingA">&emsp;</p>
+            <h1 id="answerN">N</h1>
+            <p id="spacingN">&emsp;</p>
+            <h1 id="answerG">G</h1>
+            <p id="spacingG">&emsp;</p>
+            <h1 id="answerE">E</h1>
+            <p id="spacingE">&emsp;</p>
+            <h1 id="answerR2">R</h1>
+        </div>
+
+        <div class="underline">
+            ____   ____   ____   ____   ____   ____   ____
+        </div>
+
+    </section>
+    <script>
+        let count = 0;
+        let win = 0;
+
+        const correctSound = document.getElementById('correctSound');
+        const wrongSound = document.getElementById('wrongSound');
+        const gameOverSound = document.getElementById('gameOverSound');
+        const winSound = document.getElementById('winSound');
+
+        $(document).ready(function() {     
+            $('button').click(function() {
+                if ($(this).data('clicked')) {
+                    alert('Already clicked!');
+                } else if ($(this).data('clicked', false)) {
+                    $(this).css('background', 'orange');
+                    $(this).data('clicked', true);
+                        if (this.id == 's') {
+                            win ++
+                            $('#answerS').show();
+                            $('#spacingS').hide();
+                                if (win === 7) {
+                                    $(winSound.play());
+                                    alert('Congratulations! You win!');
+                                } else {
+                                    $(correctSound.play());
+                                    console.log(win);
+                                    }
+                        } else if (this.id == 't') {
+                            win ++
+                            $('#answerT').show();
+                            $('#spacingT').hide();
+                                if (win === 7) {
+                                    $(winSound.play());
+                                    alert('Congratulations! You win!');
+                                } else {
+                                    $(correctSound.play());
+                                    console.log(win);
+                                    }
+                        } else if (this.id == 'r') {
+                            win ++
+                            $('#answerR').show();
+                            $('#spacingR').hide();
+                            $('#answerR2').show();
+                                if (win === 7) {
+                                    $(winSound.play());
+                                    alert('Congratulations! You win!');
+                                } else {
+                                    $(correctSound.play());
+                                    console.log(win);
+                                    }
+                        } else if (this.id == 'a') {
+                             win ++
+                            $('#answerA').show();
+                            $('#spacingA').hide();
+                                if (win === 7) {
+                                    $(winSound.play());
+                                    alert('Congratulations! You win!');
+                                } else {
+                                    $(correctSound.play());
+                                    console.log(win);
+                            }
+                        }   else if (this.id == 'n') {
+                            win ++
+                            $('#answerN').show();
+                            $('#spacingN').hide();
+                                if (win === 7) {
+                                    $(winSound.play());
+                                    alert('Congratulations! You win!');
+                                } else {
+                                    $(correctSound.play());
+                                    console.log(win);
+                            }
+                        }  else if (this.id == 'g') {
+                            win ++
+                            $('#answerG').show();
+                            $('#spacingG').hide();
+                                if (win === 7) {
+                                    $(winSound.play());
+                                    alert('Congratulations! You win!');
+                                } else {
+                                    $(correctSound.play());
+                                    console.log(win);
+                            }
+                        } else if (this.id == 'e') {
+                            win ++
+                            $('#answerE').show();
+                            $('#spacingE').hide();
+                                if (win === 7) {
+                                    $(winSound.play());
+                                    alert('Congratulations! You win!');
+                                } else {
+                                    $(correctSound.play());
+                                    console.log(win);
+                            }
+                        } else if (this.id == 'r') {
+                            win ++
+                            $('#answerR').show();
+                                if (win === 7) {
+                                    $(winSound.play());
+                                    alert('Congratulations! You win!');
+                                } else {
+                                    $(correctSound.play());
+                                    console.log(win);
+                            }
+                        } else {
+                            count++
+                            if (count === 1) {
+                                $(wrongSound.play());
+                                $('img').attr('src', './images/head.jpg');
+                                console.log(count);
+                            } else if (count === 2) {
+                                $(wrongSound.play());
+                                $('img').attr('src', './images/body.jpg');
+                                console.log(count);
+                            } else if (count === 3) {
+                                $(wrongSound.play());
+                                $('img').attr('src', './images/legs.jpg');
+                                console.log(count);
+                            } else if (count === 4) {
+                                $(wrongSound.play());
+                                $('img').attr('src', './images/hand.jpg');
+                                console.log(count);
+                            } else if (count === 5) {
+                                $(wrongSound.play());
+                                $('img').attr('src', './images/hand1.jpg');
+                                console.log(count);
+                            } else if (count === 6) {
+                                $(wrongSound.play());
+                                $('img').attr('src', './images/feet.jpg');
+                                console.log(count);
+                            } else {
+                                $(gameOverSound.play());
+                                $('img').attr('src', './images/feet1.jpg');
+                                alert('Better luck next time...');
+                            }
+                        }
+                } else {
+                    alert('error');
+                }
+            })
+        })
+
+    </script>
+
+</body>
+</html>
